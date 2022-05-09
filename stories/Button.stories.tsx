@@ -29,6 +29,6 @@ Default.args = {
 
 export const Secondary = Template.bind({});
 Default.args = {
-  children: 'Button',
+  children: 'Secondary button dis one',
   variant: 'secondary',
 };
