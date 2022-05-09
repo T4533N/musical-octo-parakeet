@@ -19,7 +19,16 @@ const meta: Meta = {
 
 export default meta;
 
-export const Default = () => <Button variant="primary">Default Button</Button>;
-export const Secondary = () => (
-  <Button variant="secondary">Secondary Button</Button>
-);
+const Template = (args: Props) => <Button {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  children: 'Button',
+  variant: 'primary',
+};
+
+export const Secondary = Template.bind({});
+Default.args = {
+  children: 'Button',
+  variant: 'secondary',
+};
