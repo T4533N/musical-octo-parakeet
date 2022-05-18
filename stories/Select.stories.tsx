@@ -74,6 +74,36 @@ Combobox.args = {
   isDisabled: false,
 };
 
+export const Flushed = Template.bind({});
+Flushed.args = {
+  isButton: false,
+  isClearable: true,
+  // data: list,
+  placement: 'bottom-start',
+  isLazy: true,
+  lazyBehavior: 'keepMounted',
+  closeOnBlur: false,
+  returnFocusOnClose: false,
+  popoverStyles: {
+    maxHeight: '300px',
+  },
+  inputProps: {
+    size: 'md',
+    placeholder: 'Choose an item',
+    variant: 'flushed',
+    border: '0px',
+  },
+  listProps: {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled: false,
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   isButton: false,
@@ -118,38 +148,8 @@ Colors.args = {
   inputProps: {
     size: 'md',
     placeholder: 'Choose an item',
-    backgroundColor: '#BFE2FF',
+    backgroundColor: '#BEE3F8',
     color: '#000',
-  },
-  listProps: {
-    paddingLeft: '4',
-    paddingRight: '4',
-    textAlight: 'left',
-    width: '100%',
-    rounded: 0,
-    variant: 'unstyled',
-  },
-  isDisabled: false,
-};
-
-export const Flushed = Template.bind({});
-Flushed.args = {
-  isButton: false,
-  isClearable: true,
-  // data: list,
-  placement: 'bottom-start',
-  isLazy: true,
-  lazyBehavior: 'keepMounted',
-  closeOnBlur: false,
-  returnFocusOnClose: false,
-  popoverStyles: {
-    maxHeight: '300px',
-  },
-  inputProps: {
-    size: 'md',
-    placeholder: 'Choose an item',
-    variant: 'flushed',
-    border: '0px',
   },
   listProps: {
     paddingLeft: '4',
