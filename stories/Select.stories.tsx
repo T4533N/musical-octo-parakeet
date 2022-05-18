@@ -119,6 +119,7 @@ Colors.args = {
     size: 'md',
     placeholder: 'Choose an item',
     backgroundColor: '#000000',
+    color: '#ffffff',
   },
   listProps: {
     paddingLeft: '4',
