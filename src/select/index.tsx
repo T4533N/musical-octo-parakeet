@@ -14,46 +14,101 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelect } from './use-select';
 
-import useAutoComplete from './use-autocomplete';
-import boldQuery from './bold-string';
+import useAutoComplete from './utils/use-autocomplete';
+import boldQuery from './utils/bold-string';
 import { CheckIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
 
 export const list = [
   {
     name: 'Capsicum',
+    price: 100,
   },
   {
     name: 'Paneer',
+    price: 500,
   },
   {
     name: 'Red Paprika',
+    price: 200,
   },
   {
     name: 'Onions',
+    price: 300,
   },
   {
     name: 'Extra Cheese',
+    price: 50,
   },
   {
-    name: 'Extra',
+    name: 'Coriander',
+    price: 55,
   },
   {
-    name: 'Cheese',
+    name: 'Brinjal',
+    price: 60,
   },
   {
-    name: 'Extra Whatever',
+    name: 'Cabbage',
+    price: 65,
   },
   {
-    name: 'Dis Is Unique',
+    name: 'Tomato',
+    price: 70,
   },
 ];
 
-const Select = ({ isButton }) => {
+export interface Props {
+  // whatever
+  isButton: boolean;
+  isClearable: boolean;
+  buttonText: any;
+  data: any;
+  sortBy: string;
+  placement: string;
+  isLazy: boolean;
+  lazyBehavior: string;
+  closeOnBlur: boolean;
+  returnFocusOnClose: boolean;
+  inputProps: any;
+  popoverStyles: any;
+  listProps: any;
+  isDisabled: boolean;
+}
+
+const Select = ({
+  isButton = false,
+  buttonText = 'name',
+  isClearable = true,
+  data = list,
+  sortBy = 'name',
+  placement = 'bottom-start',
+  isLazy = true,
+  lazyBehavior = 'keepMounted',
+  closeOnBlur = false,
+  returnFocusOnClose = false,
+  popoverStyles = {
+    maxHeight: '300px',
+  },
+  inputProps = {
+    size: 'md',
+    placeholder: 'Choose an item',
+  },
+  listProps = {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled = false,
+}: Props) => {
   const {
-    index,
+    // index,
+    // custom,
     setIndex,
     item,
     setItem,
@@ -63,14 +118,13 @@ const Select = ({ isButton }) => {
     focused,
     onBlur,
     onFocus,
-    custom,
-  } = useSelect(list, null);
+  } = useSelect(list, 0);
   const initialFocusRef = React.useRef<HTMLInputElement>(null);
 
   const [suggestions] = useAutoComplete({
-    data: list,
+    data,
     value: inputValue,
-    sortBy: 'name',
+    sortBy,
   });
 
   useOutsideClick({
@@ -82,16 +136,19 @@ const Select = ({ isButton }) => {
     <Box maxW="322">
       <Popover
         initialFocusRef={initialFocusRef}
-        returnFocusOnClose={false}
+        returnFocusOnClose={returnFocusOnClose}
         isOpen={focused}
-        closeOnBlur={false}
-        isLazy
-        lazyBehavior="keepMounted"
-        placement="bottom-start"
+        closeOnBlur={closeOnBlur}
+        isLazy={isLazy}
+        // @ts-ignore
+        lazyBehavior={lazyBehavior}
+        // @ts-ignore
+        placement={placement as string}
       >
         <PopoverTrigger>
-          <InputGroup size="md">
+          <InputGroup>
             <Input
+              isDisabled={isDisabled}
               onBlur={onBlur}
               onFocus={onFocus}
               ref={initialFocusRef}
@@ -102,61 +159,58 @@ const Select = ({ isButton }) => {
               onChange={(e: any) => {
                 setInputValue(e.target.value);
               }}
-              placeholder="Choose an item"
-              size="md"
-              children={isButton ? item.name : null}
+              children={isButton ? item?.[buttonText] : null}
+              {...inputProps}
             />
 
             <InputRightElement width="4.5rem" color="gray.400">
-              <Button
-                size="sm"
-                onClick={() => {
-                  setIndex(null);
-                  setInputValue('');
-                }}
-                variant="unstyled"
-              >
-                <Icon as={CloseIcon} w={2.5} h={2.5} />
-              </Button>
+              {isClearable && (
+                <Button
+                  isDisabled={isDisabled}
+                  size="sm"
+                  onClick={() => {
+                    setIndex(null);
+                    setInputValue('');
+                  }}
+                  variant="unstyled"
+                >
+                  <Icon as={CloseIcon} w={2.5} h={2.5} />
+                </Button>
+              )}
               <Divider height="70%" orientation="vertical" />
-              <Button size="sm" onClick={() => {}} variant="unstyled">
+              <Button size="sm" variant="unstyled" isDisabled={isDisabled}>
                 <Icon as={ChevronDownIcon} w={6} h={6} />
               </Button>
             </InputRightElement>
           </InputGroup>
         </PopoverTrigger>
-        <PopoverContent maxH={300} overflowY="auto" overflowX="auto">
+        <PopoverContent overflowY="auto" overflowX="auto" {...popoverStyles}>
           <PopoverBody p={0} m={0}>
             <VStack spacing="3px">
               {suggestions.length > 0 ? (
                 suggestions.map((listItem: any, listIndex: any) => {
-                  const isSelected = listIndex === index;
+                  const isSelected = listItem?.[sortBy] === item?.[sortBy];
 
                   const isNotSearching =
-                    inputValue.toLowerCase() === item?.name.toLowerCase();
+                    inputValue.toLowerCase() === item?.[sortBy].toLowerCase();
 
                   const text = isNotSearching
-                    ? listItem.name
-                    : boldQuery(listItem.name, inputValue);
+                    ? listItem?.[sortBy]
+                    : boldQuery(listItem?.[sortBy], inputValue);
 
                   return (
                     <Button
+                      {...listProps}
                       fontWeight={isSelected ? 'bold' : 'normal'}
-                      paddingLeft={4}
-                      paddingRight={4}
-                      textAlign={'left'}
                       display="flex"
                       justifyContent="space-between"
-                      rounded={0}
-                      variant={'unstyled'}
                       backgroundColor={isSelected ? 'gray.50' : 'white'}
-                      id={listItem.name}
+                      id={listIndex}
                       onClick={() => {
                         setItem(listItem);
-                        setInputValue(listItem.name);
+                        setInputValue(listItem?.name);
                         // setFocused(true);
                       }}
-                      w={'100%'}
                     >
                       <Box dangerouslySetInnerHTML={{ __html: text }} />
                       {isSelected && <Icon as={CheckIcon} />}
@@ -193,15 +247,3 @@ const Select = ({ isButton }) => {
 };
 
 export default Select;
-
-// https://www.lekoarts.de/react/how-to-build-an-advanced-multipart-component-with-chakra-ui#creating-multicontainer
-// https://www.npmjs.com/package/use-ref-map
-// https://www.robinwieruch.de/react-scroll-to-item/
-
-// function goToG1(id: any) {
-//   // @ts-ignore
-//   document.getElementById(id).scrollIntoView({
-//     behavior: 'smooth',
-//     block: 'start',
-//   });
-// }

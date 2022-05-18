@@ -1,7 +1,5 @@
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
-import Menu from '../src/menu/theme';
-import CustomSelect from '../src/select/theme';
 
 const breakpoints = createBreakpoints({
   sm: '640px',
@@ -17,10 +15,7 @@ const config: ThemeConfig = {
 };
 
 const theme = extendTheme({
-  components: {
-    Menu,
-    CustomSelect,
-  },
+  components: {},
   breakpoints,
   config,
 });

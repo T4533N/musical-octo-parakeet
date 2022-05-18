@@ -7,8 +7,6 @@ interface Props {
 export default function useAutoComplete({ data, value, sortBy }: Props) {
   let suggestions: any = [];
 
-  // if the item selected is present in the array then show all suggestions
-
   const checkValue = ({ arr, key, valueToCheck }: any) => {
     return arr.some((value: any) => value[key] === valueToCheck);
   };
@@ -29,5 +27,3 @@ export default function useAutoComplete({ data, value, sortBy }: Props) {
 
   return [suggestions];
 }
-
-// const regex = new RegExp(`^${value}`, "i");

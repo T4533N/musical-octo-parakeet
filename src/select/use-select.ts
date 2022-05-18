@@ -1,4 +1,3 @@
-import { useDisclosure, usePopper } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 type SelectHandler<T> = {
@@ -23,7 +22,7 @@ type SelectHandler<T> = {
  * @param [initialIndex=0] Initial index which is selected
  * @returns handler
  */
-function useSelect<T>(list: T[], initialIndex: number = 0): any {
+function useSelect<T>(list: T[], initialIndex: number = 0): SelectHandler<T> {
   const [selectedIndex, setSelectedIndex] = useState(initialIndex);
   const [custom, setCustom] = useState<any>(null);
   const [inputValue, setInputValue] = useState('');
