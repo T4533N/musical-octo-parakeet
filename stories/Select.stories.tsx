@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Select, { Props } from '../src/select';
+import Select, { Props } from '../src';
 
-const meta: Meta<any> = {
+const meta: Meta = {
   title: 'Design System/Select',
   component: Select,
 
@@ -20,7 +20,34 @@ const Template: Story<Props> = (args) => <Select {...args} />;
 
 export const Primary: any = Template.bind({});
 Primary.args = {
-  // whatever
+  isButton: true,
+  isClearable: true,
+  // data: list,
+  placement: 'bottom-start',
+  isLazy: true,
+  lazyBehavior: 'keepMounted',
+  closeOnBlur: false,
+  returnFocusOnClose: false,
+  popoverStyles: {
+    maxHeight: '300px',
+  },
+  inputProps: {
+    size: 'md',
+    placeholder: 'Choose an item',
+  },
+  listProps: {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled: false,
+};
+
+export const Combobox = Template.bind({});
+Combobox.args = {
   isButton: false,
   isClearable: true,
   // data: list,
@@ -47,5 +74,30 @@ Primary.args = {
   isDisabled: false,
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {};
+export const Disabled = Template.bind({});
+Disabled.args = {
+  isButton: false,
+  isClearable: true,
+  // data: list,
+  placement: 'bottom-start',
+  isLazy: true,
+  lazyBehavior: 'keepMounted',
+  closeOnBlur: false,
+  returnFocusOnClose: false,
+  popoverStyles: {
+    maxHeight: '300px',
+  },
+  inputProps: {
+    size: 'md',
+    placeholder: 'Choose an item',
+  },
+  listProps: {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled: true,
+};
