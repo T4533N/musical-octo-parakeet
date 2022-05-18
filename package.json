@@ -13,7 +13,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
+    "test": "tsdx test --setupFiles ./setupFile.ts",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
@@ -50,12 +50,19 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.17.10",
+    "@chakra-ui/storybook-addon": "^2.0.0",
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@storybook/addon-a11y": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.4.22",
+    "@storybook/addon-storyshots": "^6.4.22",
+    "@storybook/addon-storysource": "^6.4.22",
     "@storybook/addons": "^6.4.22",
+    "@storybook/builder-webpack5": "^6.4.22",
+    "@storybook/manager-webpack5": "^6.4.22",
     "@storybook/react": "^6.4.22",
+    "@storybook/testing-react": "^1.2.4",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "babel-loader": "^8.2.5",
@@ -67,5 +74,16 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.0",
+    "@chakra-ui/react": "^2.0.0",
+    "@chakra-ui/theme-tools": "^2.0.0",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "framer-motion": "^6"
   }
 }
