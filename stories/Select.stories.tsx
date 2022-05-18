@@ -101,3 +101,61 @@ Disabled.args = {
   },
   isDisabled: true,
 };
+
+export const Colors = Template.bind({});
+Colors.args = {
+  isButton: false,
+  isClearable: true,
+  // data: list,
+  placement: 'bottom-start',
+  isLazy: true,
+  lazyBehavior: 'keepMounted',
+  closeOnBlur: false,
+  returnFocusOnClose: false,
+  popoverStyles: {
+    maxHeight: '300px',
+  },
+  inputProps: {
+    size: 'md',
+    placeholder: 'Choose an item',
+    backgroundColor: '#000000',
+  },
+  listProps: {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled: false,
+};
+
+export const Flushed = Template.bind({});
+Flushed.args = {
+  isButton: false,
+  isClearable: true,
+  // data: list,
+  placement: 'bottom-start',
+  isLazy: true,
+  lazyBehavior: 'keepMounted',
+  closeOnBlur: false,
+  returnFocusOnClose: false,
+  popoverStyles: {
+    maxHeight: '300px',
+  },
+  inputProps: {
+    size: 'md',
+    placeholder: 'Choose an item',
+    variant: 'flushed',
+  },
+  listProps: {
+    paddingLeft: '4',
+    paddingRight: '4',
+    textAlight: 'left',
+    width: '100%',
+    rounded: 0,
+    variant: 'unstyled',
+  },
+  isDisabled: false,
+};
