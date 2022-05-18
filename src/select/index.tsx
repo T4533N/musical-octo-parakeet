@@ -1,10 +1,8 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Divider,
   Icon,
-  IconButton,
   Input,
   InputGroup,
   InputRightElement,
@@ -16,18 +14,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelect } from './use-select';
 
 import useAutoComplete from './use-autocomplete';
 import boldQuery from './bold-string';
-import {
-  AddIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  CloseIcon,
-} from '@chakra-ui/icons';
-import useRefMap from './use-ref-map';
+import { CheckIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
 
 export const list = [
   {
@@ -60,14 +52,20 @@ export const list = [
 ];
 
 const Select = ({ isButton }) => {
-  const { index, setIndex, item, setItem, custom } = useSelect(list, null);
+  const {
+    index,
+    setIndex,
+    item,
+    setItem,
+    inputValue,
+    setInputValue,
+    setFocused,
+    focused,
+    onBlur,
+    onFocus,
+    custom,
+  } = useSelect(list, null);
   const initialFocusRef = React.useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = useState('');
-  const [focused, setFocused] = useState(false);
-  const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
-
-  const { getRef, setRef } = useRefMap();
 
   const [suggestions] = useAutoComplete({
     data: list,
@@ -80,36 +78,16 @@ const Select = ({ isButton }) => {
     handler: () => setFocused(false),
   });
 
-  // function goToG1(id: any) {
-  //   // @ts-ignore
-  //   document.getElementById(id).scrollIntoView({
-  //     behavior: 'smooth',
-  //     block: 'start',
-  //   });
-  // }
-
   return (
-    <Box maxW="400">
+    <Box maxW="322">
       <Popover
         initialFocusRef={initialFocusRef}
         returnFocusOnClose={false}
         isOpen={focused}
         closeOnBlur={false}
-        // isLazy
-        // lazyBehavior="keepMounted"
+        isLazy
+        lazyBehavior="keepMounted"
         placement="bottom-start"
-        onOpen={() => {
-          console.log('hello');
-          // if (item) {
-          //   const el = getRef(item.name);
-          //   console.log('el: ', el);
-          //   el.current.scrollIntoView({
-          //     behavior: 'smooth',
-          //     block: 'start',
-          //     inline: 'start',
-          //   });
-          // }
-        }}
       >
         <PopoverTrigger>
           <InputGroup size="md">
@@ -120,8 +98,6 @@ const Select = ({ isButton }) => {
               justifyContent="space-between"
               type={isButton ? 'button' : 'text'}
               as={isButton ? Button : Input}
-              // onClick={onFocus}
-              // readOnly
               value={inputValue}
               onChange={(e: any) => {
                 setInputValue(e.target.value);
@@ -174,7 +150,6 @@ const Select = ({ isButton }) => {
                       rounded={0}
                       variant={'unstyled'}
                       backgroundColor={isSelected ? 'gray.50' : 'white'}
-                      ref={setRef(listItem.name)}
                       id={listItem.name}
                       onClick={() => {
                         setItem(listItem);
@@ -219,19 +194,14 @@ const Select = ({ isButton }) => {
 
 export default Select;
 
-{
-  /* {list.map((listItem, listItemIndex) => (
-        <Button
-          key={listItemIndex}
-          style={{
-            background: index === listItemIndex ? 'dodgerblue' : 'white',
-          }}
-          onClick={() => setIndex(listItemIndex)}
-        >
-          {listItem.name}
-        </Button>
-      ))} */
-}
-
+// https://www.lekoarts.de/react/how-to-build-an-advanced-multipart-component-with-chakra-ui#creating-multicontainer
 // https://www.npmjs.com/package/use-ref-map
 // https://www.robinwieruch.de/react-scroll-to-item/
+
+// function goToG1(id: any) {
+//   // @ts-ignore
+//   document.getElementById(id).scrollIntoView({
+//     behavior: 'smooth',
+//     block: 'start',
+//   });
+// }

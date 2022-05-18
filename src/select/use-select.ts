@@ -1,3 +1,4 @@
+import { useDisclosure, usePopper } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 
 type SelectHandler<T> = {
@@ -6,6 +7,12 @@ type SelectHandler<T> = {
   setIndex: (newIndex: number) => void;
   setItem: (newItem: any) => void;
   custom: any;
+  inputValue: any;
+  setInputValue: any;
+  focused: boolean;
+  setFocused: any;
+  onFocus: any;
+  onBlur: any;
 };
 
 /**
@@ -16,9 +23,14 @@ type SelectHandler<T> = {
  * @param [initialIndex=0] Initial index which is selected
  * @returns handler
  */
-function useSelect<T>(list: T[], initialIndex: number = 0): SelectHandler<T> {
+function useSelect<T>(list: T[], initialIndex: number = 0): any {
   const [selectedIndex, setSelectedIndex] = useState(initialIndex);
   const [custom, setCustom] = useState<any>(null);
+  const [inputValue, setInputValue] = useState('');
+  const [focused, setFocused] = useState(false);
+
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
 
   const setItem = useCallback(
     (item: T | any) => {
@@ -35,6 +47,12 @@ function useSelect<T>(list: T[], initialIndex: number = 0): SelectHandler<T> {
     setIndex: setSelectedIndex,
     setItem,
     custom,
+    inputValue,
+    setInputValue,
+    focused,
+    setFocused,
+    onFocus,
+    onBlur,
   };
 }
 
