@@ -118,8 +118,8 @@ Colors.args = {
   inputProps: {
     size: 'md',
     placeholder: 'Choose an item',
-    backgroundColor: '#000000',
-    color: '#ffffff',
+    backgroundColor: '#BFE2FF',
+    color: '#000',
   },
   listProps: {
     paddingLeft: '4',
@@ -149,6 +149,7 @@ Flushed.args = {
     size: 'md',
     placeholder: 'Choose an item',
     variant: 'flushed',
+    border: '0px',
   },
   listProps: {
     paddingLeft: '4',
